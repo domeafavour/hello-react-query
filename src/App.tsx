@@ -1,11 +1,11 @@
-import { TodoList } from "./TodoList";
-import { AddTodo } from "./AddTodo";
+import { Outlet } from 'react-router';
+import { Navbar } from './Navbar';
 
 function App() {
   return (
-    <div className="flex flex-col gap-2 p-2 font-mono m-auto w-2/5">
-      <AddTodo />
-      <TodoList />
+    <div>
+      <Navbar />
+      <Outlet />
     </div>
   );
 }
