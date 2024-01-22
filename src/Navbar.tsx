@@ -14,6 +14,10 @@ const paths = [
     path: '/persist-mutating',
     name: 'persist mutating',
   },
+  {
+    path: '/cancel-on-unmount',
+    name: 'cancel on unmount',
+  },
 ];
 
 export function Navbar() {
