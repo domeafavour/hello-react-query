@@ -7,6 +7,7 @@ import App from "./App";
 import { PersistMutating } from "./PersistMutating";
 import { Todos } from "./Todos";
 import { CancelOnUnmount } from "./CancelOnUnmount";
+import { QueryNestedData } from "./QueryNestedData";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +16,7 @@ export const router = createBrowserRouter(
       <Route path="todos" element={<Todos />} />
       <Route path="persist-mutating" element={<PersistMutating />} />
       <Route path="cancel-on-unmount" element={<CancelOnUnmount />} />
+      <Route path="query-nested-data" element={<QueryNestedData />} />
     </Route>
   )
 );

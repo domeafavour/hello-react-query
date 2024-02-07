@@ -18,6 +18,10 @@ const paths = [
     path: '/cancel-on-unmount',
     name: 'cancel on unmount',
   },
+  {
+    path: '/query-nested-data',
+    name: 'query nested data',
+  },
 ];
 
 export function Navbar() {
