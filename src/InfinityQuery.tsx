@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { Button } from './Button';
 import { fetchPaginatedTodos } from './api';
 
 const limit = 10;
@@ -10,6 +11,7 @@ export function InfinityQuery() {
     hasPreviousPage,
     isFetchingPreviousPage,
     isFetchingNextPage,
+    isFetching,
     fetchNextPage,
     fetchPreviousPage,
   } = useInfiniteQuery({
@@ -49,16 +51,15 @@ export function InfinityQuery() {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-1 h-80 overflow-auto">
-        <button
-          type="button"
-          disabled={!hasPreviousPage || isFetchingPreviousPage}
-          className="border border-black px-2 py-1 disabled:opacity-50 rounded-md"
+        <Button
+          disabled={!hasPreviousPage}
+          loading={isFetchingPreviousPage}
           onClick={() => {
             fetchPreviousPage();
           }}
         >
-          Prev{isFetchingPreviousPage ? '...' : ''}
-        </button>
+          Prev
+        </Button>
 
         {data.pages
           .flatMap((page) => page.data)
@@ -70,28 +71,26 @@ export function InfinityQuery() {
               {todo.title}
             </div>
           ))}
-        <button
-          type="button"
-          disabled={!hasNextPage || isFetchingNextPage}
-          className="border border-black px-2 py-1 disabled:opacity-50 rounded-md"
+        <Button
+          disabled={!hasNextPage}
+          loading={isFetchingNextPage}
           onClick={() => {
             fetchNextPage();
           }}
         >
-          Next{isFetchingNextPage ? '...' : ''}
-        </button>
+          Next
+        </Button>
       </div>
-      <button
-        type="button"
-        className="border border-black px-2 py-1 rounded-md"
+      <Button
         onClick={() => {
           queryClient.refetchQueries({
             queryKey: ['infinity-query'],
           });
         }}
+        loading={isFetching}
       >
-        refetch
-      </button>
+        Refetch
+      </Button>
     </div>
   );
 }
