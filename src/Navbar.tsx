@@ -22,6 +22,10 @@ const paths = [
     path: '/query-nested-data',
     name: 'query nested data',
   },
+  {
+    path: '/infinity-query',
+    name: 'infinity query',
+  },
 ];
 
 export function Navbar() {

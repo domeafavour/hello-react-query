@@ -2,12 +2,13 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-} from "react-router-dom";
-import App from "./App";
-import { PersistMutating } from "./PersistMutating";
-import { Todos } from "./Todos";
-import { CancelOnUnmount } from "./CancelOnUnmount";
-import { QueryNestedData } from "./QueryNestedData";
+} from 'react-router-dom';
+import App from './App';
+import { CancelOnUnmount } from './CancelOnUnmount';
+import { InfinityQuery } from './InfinityQuery';
+import { PersistMutating } from './PersistMutating';
+import { QueryNestedData } from './QueryNestedData';
+import { Todos } from './Todos';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ export const router = createBrowserRouter(
       <Route path="persist-mutating" element={<PersistMutating />} />
       <Route path="cancel-on-unmount" element={<CancelOnUnmount />} />
       <Route path="query-nested-data" element={<QueryNestedData />} />
+      <Route path="infinity-query" element={<InfinityQuery />} />
     </Route>
   )
 );

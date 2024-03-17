@@ -43,3 +43,17 @@ export async function updateTodoText(id: number, text: string) {
   todos = todos.map((todo) => (todo.id === id ? { ...todo, text } : todo));
   return true;
 }
+
+export async function fetchPaginatedTodos(
+  page: number,
+  limit: number
+): Promise<{
+  total: number;
+  data: { id: number; title: string; body: string; userId: number }[];
+}> {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`
+  );
+  const data = await response.json();
+  return { total: 56, data };
+}
