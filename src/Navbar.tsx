@@ -26,6 +26,10 @@ const paths = [
     path: '/infinity-query',
     name: 'infinity query',
   },
+  {
+    path: '/same-queries',
+    name: 'same queries',
+  },
 ];
 
 export function Navbar() {
