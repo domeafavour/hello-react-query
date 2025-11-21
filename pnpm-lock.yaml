@@ -23,6 +23,9 @@ dependencies:
   react-intersection-observer:
     specifier: ^9.8.1
     version: 9.8.1(react-dom@18.2.0)(react@18.2.0)
+  react-query-kit:
+    specifier: ^3.3.2
+    version: 3.3.2(@tanstack/react-query@5.15.5)
   react-router:
     specifier: ^6.21.2
     version: 6.21.2(react@18.2.0)
@@ -2089,6 +2092,17 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-query-kit@3.3.2(@tanstack/react-query@5.15.5):
+    resolution: {integrity: sha512-2dKF2kKNshfyOcEs7JG3VXCoh8SHmg8VtDb7LMgAKDrV3fFdcOh3efuEOkmD8IZ6PD+DjX9As2pL3uXKsMv2VQ==}
+    peerDependencies:
+      '@tanstack/react-query': ^4 || ^5
+    peerDependenciesMeta:
+      '@tanstack/react-query':
+        optional: true
+    dependencies:
+      '@tanstack/react-query': 5.15.5(react@18.2.0)
     dev: false
 
   /react-refresh@0.14.0:
