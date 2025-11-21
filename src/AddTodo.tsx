@@ -1,18 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTodo } from "./api";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { todoService } from "./services";
 
 export function AddTodo() {
   const queryClient = useQueryClient();
-  const [text, setText] = useState("");
-  const mutation = useMutation({
-    mutationKey: ["addTodo"],
-    mutationFn: createTodo,
+  const mutation = todoService.add.useMutation({
     onSuccess: () => {
       console.log("onSuccess");
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: todoService.list.getKey() });
     },
   });
+  const [text, setText] = useState("");
   return (
     <div>
       <form

@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
-import { removeTodo, toggleTodo } from "./api";
+import { todoService } from "./services";
 
 type Props = {
   id: number;
@@ -10,23 +10,23 @@ type Props = {
 
 export function TodoItem({ id, text, done }: Props) {
   const queryClient = useQueryClient();
-  const toggleMutation = useMutation({
-    mutationKey: ["toggleTodo", id],
-    mutationFn: toggleTodo,
+
+  function revalidate() {
+    queryClient.invalidateQueries({
+      type: "active",
+      queryKey: todoService.list.getKey(),
+    });
+  }
+
+  const toggleMutation = todoService.toggle.useMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      revalidate();
     },
   });
-  const removeMutation = useMutation({
-    mutationKey: ["removeTodo", id],
-    mutationFn: removeTodo,
-    // onMutate: () => {
-    //   queryClient.setQueryData(["todos"], (prevData: TodoType[]) => {
-    //     return prevData.filter((todo) => todo.id !== id);
-    //   });
-    // },
+
+  const removeMutation = todoService.remove.useMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      revalidate();
     },
   });
 

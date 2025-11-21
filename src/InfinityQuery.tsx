@@ -1,16 +1,16 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useVirtualizer } from '@tanstack/react-virtual';
-import classNames from 'classnames';
-import { useRef } from 'react';
-import { Button } from './Button';
-import { useInfinityTodosQuery } from './useInfinityTodosQuery';
-import { useInView } from 'react-intersection-observer';
+import { useQueryClient } from "@tanstack/react-query";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import classNames from "classnames";
+import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
+import { Button } from "./Button";
+import { todoService } from "./services";
 
 export const limit = 10;
 
 export function InfinityQuery() {
   const { data, hasNextPage, isFetchingNextPage, isFetching, fetchNextPage } =
-    useInfinityTodosQuery();
+    todoService.infiniteList.useInfiniteQuery();
 
   const queryClient = useQueryClient();
   const parentRef = useRef<HTMLDivElement | null>(null);
@@ -42,18 +42,18 @@ export function InfinityQuery() {
               <div
                 key={virtualRow.key}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   top: 0,
                   left: 0,
-                  width: '100%',
+                  width: "100%",
                   height: `${virtualRow.size}px`,
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
                 className={classNames(
-                  'flex flex-row items-center justify-center',
-                  'rounded-md',
-                  'overflow-hidden',
-                  'bg-gray-100 hover:bg-gray-200'
+                  "flex flex-row items-center justify-center",
+                  "rounded-md",
+                  "overflow-hidden",
+                  "bg-gray-100 hover:bg-gray-200"
                 )}
               >
                 {isLoaderRow ? (
@@ -78,7 +78,7 @@ export function InfinityQuery() {
       <Button
         onClick={() => {
           queryClient.refetchQueries({
-            queryKey: ['infinity-query'],
+            queryKey: todoService.infiniteList.getKey(),
           });
         }}
         loading={isFetching}
