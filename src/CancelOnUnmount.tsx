@@ -1,21 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames";
+import { posts } from "./services";
 
 export function CancelOnUnmount() {
-  const { data, isFetching } = useQuery({
-    placeholderData: [],
-    queryKey: ["posts"],
-    queryFn: async ({ signal }) => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts",
-        { signal }
-      );
-      return response.json() as Promise<
-        { userId: number; id: number; title: string; body: string }[]
-      >;
-    },
-    refetchOnWindowFocus: false,
-  });
+  const { data, isFetching } = posts.list.useQuery();
   return (
     <pre
       className={classNames("text-xs", {

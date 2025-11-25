@@ -1,17 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-
-function useHelloQuery() {
-  return useQuery({
-    queryKey: ['helloQuery'],
-    queryFn: async () => {
-      console.log('query');
-      return 'hello';
-    },
-  });
-}
+import { greeting } from "./services";
 
 function HelloQuery() {
-  const { isLoading, data } = useHelloQuery();
+  const { isLoading, data } = greeting.hello.useQuery();
 
   if (isLoading) {
     return <div>loading...</div>;

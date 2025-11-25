@@ -33,3 +33,25 @@ export const todoService = router("todos", {
   remove: router.mutation({ mutationFn: removeTodo }),
   toggle: router.mutation({ mutationFn: toggleTodo }),
 });
+
+export const greeting = router(["greeting"], {
+  hello: router.query({
+    fetcher: async () => "hello",
+  }),
+});
+
+export const posts = router(["posts"], {
+  list: router.query({
+    placeholderData: [],
+    refetchOnWindowFocus: false,
+    fetcher: async (_, { signal }) => {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts",
+        { signal }
+      );
+      return response.json() as Promise<
+        { userId: number; id: number; title: string; body: string }[]
+      >;
+    },
+  }),
+});
