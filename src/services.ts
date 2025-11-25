@@ -33,19 +33,19 @@ export const todoService = router("todos", {
   add: router.mutation({
     mutationFn: createTodo,
     meta: {
-      invalidateTags: ["todo_list"],
+      invalidatesTags: ["todo_list"],
     },
   }),
   remove: router.mutation({
     mutationFn: removeTodo,
     meta: {
-      invalidateTags: ["todo_list"],
+      invalidatesTags: ["todo_list"],
     },
   }),
   toggle: router.mutation({
     mutationFn: toggleTodo,
     meta: {
-      invalidateTags: ["todo_list"],
+      invalidatesTags: ["todo_list"],
     },
   }),
 });

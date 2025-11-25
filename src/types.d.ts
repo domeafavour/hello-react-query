@@ -11,7 +11,7 @@ interface MyMutationMeta extends Record<string, unknown> {
   /**
    * Tags to invalidate upon successful mutation
    */
-  invalidateTags?: string[];
+  invalidatesTags?: string[];
 }
 
 declare module "@tanstack/react-query" {
