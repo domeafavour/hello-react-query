@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { RemoveTodoButton } from "./RemoveTodoButton";
 import { todoService } from "./services";
-import { useRevalidateTodoList } from "./useRevalidateTodoList";
 
 type Props = {
   id: number;
@@ -10,13 +9,7 @@ type Props = {
 };
 
 export function TodoItem({ id, text, done }: Props) {
-  const revalidate = useRevalidateTodoList();
-
-  const toggleMutation = todoService.toggle.useMutation({
-    onSuccess: () => {
-      revalidate();
-    },
-  });
+  const toggleMutation = todoService.toggle.useMutation();
 
   const loading = toggleMutation.isPending;
 

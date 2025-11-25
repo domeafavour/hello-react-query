@@ -11,6 +11,9 @@ export const limit = 10;
 
 export const todoService = router("todos", {
   list: router.query({
+    meta: {
+      tags: ["todo_list"],
+    },
     fetcher: fetchTodos,
   }),
   infiniteList: router.infiniteQuery({
@@ -29,9 +32,22 @@ export const todoService = router("todos", {
   }),
   add: router.mutation({
     mutationFn: createTodo,
+    meta: {
+      invalidateTags: ["todo_list"],
+    },
   }),
-  remove: router.mutation({ mutationFn: removeTodo }),
-  toggle: router.mutation({ mutationFn: toggleTodo }),
+  remove: router.mutation({
+    mutationFn: removeTodo,
+    meta: {
+      invalidateTags: ["todo_list"],
+    },
+  }),
+  toggle: router.mutation({
+    mutationFn: toggleTodo,
+    meta: {
+      invalidateTags: ["todo_list"],
+    },
+  }),
 });
 
 export const greeting = router(["greeting"], {

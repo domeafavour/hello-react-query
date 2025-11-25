@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { todoService } from "./services";
-import { useRevalidateTodoList } from "./useRevalidateTodoList";
 
 export function AddTodo() {
-  const revalidate = useRevalidateTodoList();
-  const mutation = todoService.add.useMutation({
-    onSuccess: () => {
-      console.log("onSuccess");
-      revalidate();
-    },
-  });
+  const mutation = todoService.add.useMutation();
   const [text, setText] = useState("");
   return (
     <div>

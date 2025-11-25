@@ -1,6 +1,5 @@
 import { useIsMutating } from "@tanstack/react-query";
 import { todoService } from "./services";
-import { useRevalidateTodoList } from "./useRevalidateTodoList";
 
 interface Props {
   todoId: number;
@@ -9,13 +8,7 @@ interface Props {
 export type RemoveTodoButtonProps = Props;
 
 export function RemoveTodoButton({ todoId }: Props) {
-  const revalidate = useRevalidateTodoList();
-
-  const removeMutation = todoService.remove.useMutation({
-    onSuccess: () => {
-      revalidate();
-    },
-  });
+  const removeMutation = todoService.remove.useMutation();
 
   const isMutating = useIsMutating({
     mutationKey: todoService.toggle.getKey(),
