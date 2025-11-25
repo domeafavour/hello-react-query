@@ -16,6 +16,10 @@ export const todoService = router("todos", {
     },
     fetcher: fetchTodos,
   }),
+  paginated: router.query({
+    fetcher: async (variables: { page: number }) =>
+      await fetchPaginatedTodos(variables.page, 5),
+  }),
   infiniteList: router.infiniteQuery({
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
