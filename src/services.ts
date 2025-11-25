@@ -17,8 +17,11 @@ export const todoService = router("todos", {
     fetcher: fetchTodos,
   }),
   paginated: router.query({
-    fetcher: async (variables: { page: number }) =>
-      await fetchPaginatedTodos(variables.page, 5),
+    meta: {
+      tags: ["paginated"],
+    },
+    fetcher: async (variables: { page: number; limit: number }) =>
+      await fetchPaginatedTodos(variables.page, variables.limit),
   }),
   infiniteList: router.infiniteQuery({
     initialPageParam: 1,
@@ -37,7 +40,7 @@ export const todoService = router("todos", {
   add: router.mutation({
     mutationFn: createTodo,
     meta: {
-      invalidatesTags: ["todo_list"],
+      invalidatesTags: ["todo_list", "paginated"],
     },
   }),
   remove: router.mutation({

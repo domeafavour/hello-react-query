@@ -2,7 +2,7 @@ import { useState } from "react";
 import { todoService } from "./services";
 
 export function AddTodo() {
-  const mutation = todoService.add.useMutation();
+  const mutation = todoService.add.useMutation({});
   const [text, setText] = useState("");
   return (
     <div>
