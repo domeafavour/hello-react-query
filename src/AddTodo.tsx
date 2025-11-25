@@ -1,13 +1,13 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { todoService } from "./services";
+import { useRevalidateTodoList } from "./useRevalidateTodoList";
 
 export function AddTodo() {
-  const queryClient = useQueryClient();
+  const revalidate = useRevalidateTodoList();
   const mutation = todoService.add.useMutation({
     onSuccess: () => {
       console.log("onSuccess");
-      queryClient.invalidateQueries({ queryKey: todoService.list.getKey() });
+      revalidate();
     },
   });
   const [text, setText] = useState("");
