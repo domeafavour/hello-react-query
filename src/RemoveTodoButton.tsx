@@ -1,5 +1,6 @@
-import { useIsMutating, useQueryClient } from "@tanstack/react-query";
+import { useIsMutating } from "@tanstack/react-query";
 import { todoService } from "./services";
+import { useRevalidateTodoList } from "./useRevalidateTodoList";
 
 interface Props {
   todoId: number;
@@ -8,12 +9,11 @@ interface Props {
 export type RemoveTodoButtonProps = Props;
 
 export function RemoveTodoButton({ todoId }: Props) {
-  const queryClient = useQueryClient();
+  const revalidate = useRevalidateTodoList();
+
   const removeMutation = todoService.remove.useMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: todoService.list.getKey(),
-      });
+      revalidate();
     },
   });
 

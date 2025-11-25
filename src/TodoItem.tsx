@@ -1,7 +1,7 @@
-import { useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
 import { RemoveTodoButton } from "./RemoveTodoButton";
 import { todoService } from "./services";
+import { useRevalidateTodoList } from "./useRevalidateTodoList";
 
 type Props = {
   id: number;
@@ -10,14 +10,7 @@ type Props = {
 };
 
 export function TodoItem({ id, text, done }: Props) {
-  const queryClient = useQueryClient();
-
-  function revalidate() {
-    queryClient.invalidateQueries({
-      type: "active",
-      queryKey: todoService.list.getKey(),
-    });
-  }
+  const revalidate = useRevalidateTodoList();
 
   const toggleMutation = todoService.toggle.useMutation({
     onSuccess: () => {
