@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
+import { RemoveTodoButton } from "./RemoveTodoButton";
 import { todoService } from "./services";
 
 type Props = {
@@ -24,13 +25,7 @@ export function TodoItem({ id, text, done }: Props) {
     },
   });
 
-  const removeMutation = todoService.remove.useMutation({
-    onSuccess: () => {
-      revalidate();
-    },
-  });
-
-  const loading = toggleMutation.isPending || removeMutation.isPending;
+  const loading = toggleMutation.isPending;
 
   return (
     <li className={classNames("flex", "flex-row", "gap-1", "justify-between")}>
@@ -45,13 +40,7 @@ export function TodoItem({ id, text, done }: Props) {
         />
         <span className={classNames({ "line-through": done })}>{text}</span>
       </span>
-      <button
-        type="button"
-        disabled={loading}
-        onClick={() => removeMutation.mutate(id)}
-      >
-        x
-      </button>
+      <RemoveTodoButton todoId={id} />
     </li>
   );
 }
