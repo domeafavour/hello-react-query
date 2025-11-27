@@ -18,8 +18,8 @@ function findQueriesByTag<T extends string = string>(
 const queryClient = new QueryClient({
   defaultOptions: {
     mutations: {
-      onSuccess: (_data, _variables, _context, mutation) => {
-        const invalidatesTags = mutation.meta?.invalidatesTags;
+      onSuccess: (_data, _variables, _result, context) => {
+        const invalidatesTags = context.meta?.invalidatesTags;
         if (!invalidatesTags || !Array.isArray(invalidatesTags)) {
           return;
         }
