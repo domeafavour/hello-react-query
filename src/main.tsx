@@ -10,17 +10,17 @@ const queryClient = new QueryClient({
   defaultOptions: {
     mutations: {
       onSuccess: (_data, _variables, _context, mutation) => {
-        const invalidateTags = mutation.meta?.invalidatesTags;
-        if (!invalidateTags || !Array.isArray(invalidateTags)) {
+        const invalidatesTags = mutation.meta?.invalidatesTags;
+        if (!invalidatesTags || !Array.isArray(invalidatesTags)) {
           return;
         }
-        invalidateTags.forEach((invalidateTag) => {
+        invalidatesTags.forEach((invalidatesTag) => {
           queryClient
             .getQueryCache()
             .findAll({
               predicate: (q) =>
                 Array.isArray(q.meta?.tags) &&
-                q.meta.tags.includes(invalidateTag),
+                q.meta.tags.includes(invalidatesTag),
             })
             .forEach((q) => {
               queryClient.invalidateQueries({
