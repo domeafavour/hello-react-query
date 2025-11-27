@@ -6,6 +6,15 @@ import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import { router } from "./router";
 
+function findQueriesByTag<T extends string = string>(
+  tag: T,
+  queryClient: QueryClient
+) {
+  return queryClient.getQueryCache().findAll({
+    predicate: (q) => Array.isArray(q.meta?.tags) && q.meta.tags.includes(tag),
+  });
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     mutations: {
@@ -15,19 +24,12 @@ const queryClient = new QueryClient({
           return;
         }
         invalidatesTags.forEach((invalidatesTag) => {
-          queryClient
-            .getQueryCache()
-            .findAll({
-              predicate: (q) =>
-                Array.isArray(q.meta?.tags) &&
-                q.meta.tags.includes(invalidatesTag),
-            })
-            .forEach((q) => {
-              queryClient.invalidateQueries({
-                queryKey: q.queryKey,
-                type: "active",
-              });
+          findQueriesByTag(invalidatesTag, queryClient).forEach((q) => {
+            queryClient.invalidateQueries({
+              queryKey: q.queryKey,
+              type: "active",
             });
+          });
         });
       },
     },
