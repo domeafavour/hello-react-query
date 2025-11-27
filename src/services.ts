@@ -9,16 +9,22 @@ import {
 
 export const limit = 10;
 
+type InvalidatesTag = "TodoList" | "Paginated";
+
+function defineTags(tags: InvalidatesTag[]) {
+  return tags;
+}
+
 export const todoService = router("todos", {
   list: router.query({
     meta: {
-      tags: ["todo_list"],
+      tags: defineTags(["TodoList"]),
     },
     fetcher: fetchTodos,
   }),
   paginated: router.query({
     meta: {
-      tags: ["paginated"],
+      tags: defineTags(["Paginated"]),
     },
     fetcher: async (variables: { page: number; limit: number }) =>
       await fetchPaginatedTodos(variables.page, variables.limit),
@@ -40,19 +46,19 @@ export const todoService = router("todos", {
   add: router.mutation({
     mutationFn: createTodo,
     meta: {
-      invalidatesTags: ["todo_list", "paginated"],
+      invalidatesTags: defineTags(["TodoList", "Paginated"]),
     },
   }),
   remove: router.mutation({
     mutationFn: removeTodo,
     meta: {
-      invalidatesTags: ["todo_list"],
+      invalidatesTags: defineTags(["TodoList"]),
     },
   }),
   toggle: router.mutation({
     mutationFn: toggleTodo,
     meta: {
-      invalidatesTags: ["todo_list"],
+      invalidatesTags: defineTags(["TodoList"]),
     },
   }),
 });
